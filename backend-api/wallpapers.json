@@ -1,0 +1,8 @@
+{
+    "wallpapers": [
+        {
+            "name": "cat",
+            "image": "backend-api\\wallpaper_images\\cat.jpg"
+        }
+    ]
+}
