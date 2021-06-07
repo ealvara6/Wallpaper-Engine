@@ -46,14 +46,14 @@ export default function LoginModal(props) {
             email: email,
             password: password
         }
-        axios.post(`http://localhost:5000/api/user/login`, loginInfo)
+        axios.post(`/api/user/login`, loginInfo)
         .then(res => {
             setOpen(false);
             localStorage.setItem('loggedIn', res.data.LoggedIn);
             localStorage.setItem('token', res.data.token);
             setIsLoggedIn(localStorage.getItem('loggedIn'));
             setToken(localStorage.getItem('token'));
-            window.location.href = "http://localhost:3000/home";
+            window.location.href = "/";
         })
         .catch((err) => {
             if(err.response.data.errors.length > 1){

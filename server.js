@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express'),
     app = express(),
     cors = require('cors'),
     port = process.env.PORT || 5000,
+    host = process.env.HOST,
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
     User = require('./api/models/userModel')
@@ -17,7 +19,6 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 //importing routes
-var contactRoutes = require('./api/routes/contactRoutes');
 var userRoutes = require('./api/routes/userRoutes');
 const wallpaperRoutes = require('./api/routes/wallpaperRoutes');
 
@@ -34,4 +35,4 @@ app.get('/*', (req, res) => {
 app.use(errorController);
 
 app.listen(port);
-console.log('todo list RESTful API server started on ' + port);
+console.log(`wallpaper-engine RESTful API server started on http://${host}:${port}`);

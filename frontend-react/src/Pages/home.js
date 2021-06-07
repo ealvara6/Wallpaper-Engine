@@ -1,8 +1,6 @@
 import { React, useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
 import Wallpaper from '../Components/wallpaper';
 import axios from 'axios';
-// import cat from '../Images/cat.jpg';
 
 export function Home(props){
     const [wallpapers, setWallpapers] = useState({
@@ -11,10 +9,9 @@ export function Home(props){
     });
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/wallpapers')
+        axios.get(`/api/wallpapers`)
         .then((res) => {
             setWallpapers({isLoading: false, data: res.data, });
-            console.log(res.data[0])
         });
 
     },[])

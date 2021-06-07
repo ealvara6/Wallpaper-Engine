@@ -5,7 +5,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 export default function Account(props) {
     const[anchorEl, setAnchorEl] = useState(null);
-    const[isLoggedIn, setIsLoggedIn] = useState(null);
 
     const handleClick = (e) => {
         setAnchorEl(e.currentTarget);
@@ -16,16 +15,15 @@ export default function Account(props) {
     }
     const handleLogout = () => {
         localStorage.clear();
-        setIsLoggedIn(false);
-        window.location.href = "http://localhost:3000/home";
+        window.location.href = "/";
     }
 
     const handleAccount = () => {
-        window.location.href = 'http://localhost:3000/user/profile';
+        window.location.href = '/user/profile';
     }
 
     const handleFavorites = () => {
-        window.location.href = 'http://localhost:3000/user/favorites';
+        window.location.href = '/user/favorites';
     }
     
 

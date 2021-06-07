@@ -50,7 +50,7 @@ export default function Wallpaper(props) {
         }
         if(!wallpaper.favorite){
             //handles a favorite in the backend
-            axios.put('http://localhost:5000/api/user/favorite', data, { headers })
+            axios.put('/api/user/favorite', data, { headers })
             .then(res => {
                 console.log(res);
             })
@@ -66,7 +66,7 @@ export default function Wallpaper(props) {
         }
         else{
             //handles an unfavorite in the backend
-            axios.put('http://localhost:5000/api/user/unfavorite', data, { headers })
+            axios.put('/api/user/unfavorite', data, { headers })
             .then(res => {
                 console.log(res);
             })

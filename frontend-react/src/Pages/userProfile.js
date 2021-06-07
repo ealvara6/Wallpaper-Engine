@@ -5,7 +5,6 @@ import { Container } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -37,7 +36,7 @@ export function UserProfile(props) {
                 token: localStorage.getItem('token')
             }
         }
-        axios.get('http://localhost:5000/api/user/profile', data)
+        axios.get(`/api/user/profile`, data)
         .then(res => {
             console.log(res.data);
             setUser({loading: false, data: res.data});

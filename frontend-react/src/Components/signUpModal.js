@@ -57,7 +57,7 @@ export default function CreateSignUpModal(props) {
             email : email,
             password : password,
         }
-        axios.post('http://localhost:5000/api/users', user)
+        axios.post('/api/users', user)
         .then(res => {
             console.log(res);
             setShowSuccess(true);
