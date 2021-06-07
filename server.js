@@ -3,7 +3,6 @@ const express = require('express'),
     app = express(),
     cors = require('cors'),
     port = process.env.PORT || 8080,
-    host = process.env.HOST || 'localhost',
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
     User = require('./api/models/userModel')
@@ -35,4 +34,4 @@ app.get('*', (req, res) => {
 app.use(errorController);
 
 app.listen(port);
-console.log(`wallpaper-engine RESTful API server started on http://${host}:${port}`);
+console.log(`wallpaper-engine RESTful API server started on ${port}`);
