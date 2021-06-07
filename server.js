@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express'),
     app = express(),
     cors = require('cors'),
-    port = process.env.PORT || 5000,
-    host = process.env.HOST,
+    port = process.env.PORT || 8080,
+    host = process.env.HOST || 'localhost',
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
     User = require('./api/models/userModel')
