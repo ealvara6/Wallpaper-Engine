@@ -3,6 +3,7 @@ const express = require('express'),
     app = express(),
     cors = require('cors'),
     port = process.env.PORT || 8080,
+    mongodb = process.env.MONGODBURI,
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
     User = require('./api/models/userModel')
@@ -12,7 +13,7 @@ const express = require('express'),
 
 //mongoose instance connection url connection
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb+srv://ealvara6:Idontknow73.@cluster0.glxq4.mongodb.net/React-Nodejs');
+mongoose.connect(mongodb);
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
