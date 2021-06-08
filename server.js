@@ -13,7 +13,9 @@ const express = require('express'),
 
 //mongoose instance connection url connection
 mongoose.Promise = global.Promise
-mongoose.connect(mongodb);
+mongoose.connect(mongodb, { useNewUrlParser: true})
+        .then(connect => console.log('connected to mongodb'))
+        .catch(e => console.log('could not connect to mongodb', e));
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
