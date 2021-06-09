@@ -85,7 +85,7 @@ export default function Wallpaper(props) {
 
     //Creates a grid of images to display
     const createList = () => {
-        return( <GridList cellHeight={600} className={classes.gridList} height={gridHeight} cols={6}>
+        return( <GridList cellHeight={300} className={classes.gridList} height={gridHeight} cols={6}>
             {wallpapers.map((wallpaper, index) => (
                     <GridListTile key={wallpaper.image} cols={3}>
                         <img src={wallpaper.image} alt={wallpaper.name} />
