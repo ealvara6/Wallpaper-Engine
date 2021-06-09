@@ -1,31 +1,32 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { blue } from '@material-ui/core/colors';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: 'black',
-        padding: 0,
-    },
-    grid: {
-        backgroundColor: 'white',
     },
     info: {
-        backgroundColor: 'red',
         textAlign: 'left',
         alignItems: 'stretch',
-        justifyContent: 'center',
+        marginLeft: theme.spacing(3),
+        color: theme.palette.text.secondary,
     },
-    block: {
-        backgroundColor: 'blue',
-        padding: theme.spacing(2),
-        margin: 50,
-
+    img: {
+        maxWidth: '100%',
+        height: 'auto',
+        width: 'auto',
+    },
+    aboutTitle: {
+        textAlign: 'left',
+        color: theme.palette.text.primary,
+        marginTop: theme.spacing(1),
+        marginLeft: theme.spacing(3),
+    },
+    contactTitle: {
+        textAlign: 'center',
     }
 }));
 
@@ -36,11 +37,11 @@ export function About(props){
         <Container className={classes.root}>
             <Grid container className={classes.grid} spacing={0}>
                 <Grid className={classes.photo} item xs={12} sm={5}>
-                    <img src="Images/headshots/headshot.png" alt="" />
+                    <img className={classes.img} src="Images/headshots/headshot.png" alt="Headshot" />
                 </Grid>
-                <Grid container className={classes.info} item xs={12} sm={7}>
-                    <Grid className={classes.block} xs={12}>test</Grid>
-                    <Grid className={classes.block} xs={12}>test</Grid>
+                <Grid item xs={12} sm={7}>
+                    <h1 className={classes.aboutTitle}>About</h1>
+                    <p className={classes.info}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eligendi, sint expedita dolores, optio itaque atque quasi ipsam architecto distinctio voluptas at, veniam minus earum! Ullam ipsum corporis officia neque qui provident doloremque? Rem eligendi ullam illo maiores facilis deserunt eum molestiae et, impedit quaerat sapiente omnis veritatis commodi explicabo aperiam saepe nam at laborum. Aliquam exercitationem atque esse sit sed mollitia dolore! Ducimus sapiente velit cupiditate, quas, eos accusantium necessitatibus, debitis quos sequi doloremque vero excepturi deleniti iusto voluptatum ullam temporibus delectus consequuntur aperiam facilis ab at rerum sunt asperiores. Minus eius architecto sapiente qui possimus, non facere accusamus laboriosam hic ipsa recusandae quas porro sed velit exercitationem dignissimos placeat, necessitatibus eligendi quisquam atque. Quia expedita atque laborum repellendus velit, pariatur numquam inventore dignissimos sit commodi quae dicta, magni, laboriosam incidunt illo optio necessitatibus. Sunt nesciunt rerum, magni assumenda iure maiores nulla minima tempora unde, necessitatibus modi tempore molestiae quod quas animi neque. Praesentium et maiores molestiae suscipit vel! Incidunt maxime ex velit! Odio perspiciatis, ipsa rem repudiandae, aperiam explicabo omnis saepe rerum facilis voluptatibus optio nemo nam enim ad, nobis harum beatae modi asperiores quaerat molestiae quos alias. Iste accusantium eveniet adipisci optio maiores. Aliquam illo temporibus vitae!</p>
                 </Grid>
             </Grid>
         </Container>

@@ -21,17 +21,20 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        background: 'white'
+        marginBottom: theme.spacing(5),
     },
     list: {
         width: '100%',
-        maxWidth: 360,
         justifyItems: 'center',
+        alignItems: 'stretch',
     },
     listItem: {
         textAlign: 'center',
         justifyContent: 'center',
-    }
+    },
+    divider: {
+        backgroundColor: theme.palette.divider,
+    },
 }))
 
 export function RenderNavbar() {
@@ -73,13 +76,13 @@ export function RenderNavbar() {
 
     const desktopNavbar = () => {
         return(
-                <Box>
-                    <Navbar className={classes.root}>
+                <Box className={classes.root}>
+                    <Navbar>
                         <Navbar.Brand href="home">Wallpaper Engine</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
-                                <ButtonGroup variant="text" color="primary">
+                                <ButtonGroup variant="text">
                                     <Button><Nav.Link href="/">Home</Nav.Link></Button>
                                     <Button><Nav.Link href="/about">About</Nav.Link></Button>
                                 </ButtonGroup>
@@ -96,42 +99,46 @@ export function RenderNavbar() {
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
+                    <Divider className={classes.divider} />
                 </Box>
             )
     }
 
     const mobileNavbar = () => {
         return(
-            <Accordion>
-                <AccordionSummary
-                    expandIcon={<MenuIcon />}
-                >
-                    <Typography>Wallpaper Engine</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <List component='nav' className={classes.list}>
-                        <ListItem button className={classes.listItem} onClick={() => handleButton('home')}>
-                            <ListItemText primary="Home" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem button className={classes.listItem} divider onClick={() => handleButton('about')}>
-                            <ListItemText primary="About" />
-                        </ListItem>
+            <Box className={classes.box}>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<MenuIcon />}
+                    >
+                        <Typography>Wallpaper Engine</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <List component='nav' className={classes.list}>
+                            <ListItem button className={classes.listItem} onClick={() => handleButton('home')}>
+                                <ListItemText primary="Home" />
+                            </ListItem>
+                            <Divider />
+                            <ListItem button className={classes.listItem} divider onClick={() => handleButton('about')}>
+                                <ListItemText primary="About" />
+                            </ListItem>
 
-                        {isLoggedIn ? <Account /> :
-                        <>
-                            <ListItem button className={classes.listItem}>
-                                <LoginModal />
-                            </ListItem>
-                            <Divider />
-                            <ListItem button className={classes.listItem}>
-                                <SignUpModal />
-                            </ListItem>
-                            <Divider />
-                        </>}
-                    </List>
-                </AccordionDetails>
-            </Accordion>
+                            {isLoggedIn ? <Account /> :
+                            <>
+                                <ListItem button className={classes.listItem}>
+                                    <LoginModal />
+                                </ListItem>
+                                <Divider />
+                                <ListItem button className={classes.listItem}>
+                                    <SignUpModal />
+                                </ListItem>
+                                <Divider />
+                            </>}
+                        </List>
+                    </AccordionDetails>
+                </Accordion>
+                <Divider className={classes.divider} />
+            </Box>
         )
     }
 

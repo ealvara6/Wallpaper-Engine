@@ -9,9 +9,18 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+    button: {
+        marginRight: theme.spacing(1),
+    }
+}))
 
 
 export default function LoginModal(props) {
+    const classes = useStyles();
     const [open, setOpen] = useState(props.open);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -73,7 +82,7 @@ export default function LoginModal(props) {
 
     return(
         <Box>
-            <Button variant="outlined" color="primary" onClick={handleOpen}>
+            <Button className={classes.button} variant="outlined" color="primary" onClick={handleOpen}>
                 Login
             </Button> 
             <Dialog open={open} onClose={handleClose} aria-labelledby="for-dialog-title">

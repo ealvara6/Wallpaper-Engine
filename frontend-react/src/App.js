@@ -7,11 +7,18 @@ import { Switch, Route } from 'react-router-dom';
 import { RenderNavbar } from './Components/navbar';
 import { UserProfile } from './Pages/userProfile';
 import { UserFavorites } from './Pages/userFavorites';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  bg: {
+    backgroundColor: theme.palette.background.default,  
+  }
+}))
 
 function App() {
+  const classes = useStyles();
   return (
-    <div className="App">
+    <div className={classes.bg}>
       <RenderNavbar />
       <Switch>
         <Route path='/about' component={About} />
