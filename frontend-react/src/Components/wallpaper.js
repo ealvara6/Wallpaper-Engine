@@ -29,9 +29,26 @@ const useStyles = makeStyles((theme) => ({
 export default function Wallpaper(props) {
     const classes = useStyles();
     const [wallpapers, setWallpapers] = useState([...props.wallpaper]);
+    const [imageProps, setImageProps] = useState({cellHeight: null, col: null});
     //calculates the height of the gridlist based on the number of images
     const gridHeight = wallpapers.length * 600;
 
+
+    useEffect(() => {
+        handleViewPort();
+        window.addEventListener('resize', handleViewPort)
+
+        return function cleanup(){
+            window.removeEventListener('resize', handleViewPort);        
+        }
+    },[imageProps])
+
+    const handleViewPort = () => {
+        if(window.innerWidth < 600)
+            setImageProps({cellHeight: 300, col: 3});
+        else
+            setImageProps({cellHeight: 600, col: 6});
+    }
 
 
 
@@ -83,9 +100,10 @@ export default function Wallpaper(props) {
     }
 
 
+
     //Creates a grid of images to display
     const createList = () => {
-        return( <GridList cellHeight={300} className={classes.gridList} height={gridHeight} cols={6}>
+        return( <GridList cellHeight={imageProps.cellHeight} className={classes.gridList} height={gridHeight} cols={imageProps.col}>
             {wallpapers.map((wallpaper, index) => (
                     <GridListTile key={wallpaper.image} cols={3}>
                         <img src={wallpaper.image} alt={wallpaper.name} />
@@ -107,6 +125,7 @@ export default function Wallpaper(props) {
         ))}
         </GridList>)
     }
+
 
 
     return(
