@@ -111,7 +111,7 @@ export default function Wallpaper(props) {
     const handleDownload = (imagePath) => {
         axios.get(`/api/wallpaper/download/${imagePath}`)
         .then( res => {
-            window.open(`http://localhost:8080/api/wallpaper/download/${imagePath}`);
+            window.open(`https://wallpaperengine.live/api/wallpaper/download/${imagePath}`);
         })
         .catch(err => {
             console.log(err.response.data);
@@ -133,6 +133,7 @@ export default function Wallpaper(props) {
                             actionIcon={
                                 <>
                                     <IconButton className={classes.icon} onClick={() => handleFavorite(wallpaper)}>
+                                        {/* checks to see if image has already been favorited then displays the correct icon */}
                                         {(favorites.find(id => id === wallpaper._id) != undefined) ? <HeartIcon /> : <HeartBorder /> }
                                     </IconButton>
                                     <IconButton className={classes.icon} onClick={() => handleDownload(wallpaper.image)}>
