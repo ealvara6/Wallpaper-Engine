@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +52,7 @@ export function UserProfile(props) {
 
     return(
         <Container className={classes.root}>
-            {user.loading ? <h1>Loading...</h1> : 
+            {user.loading ? <Box textAlign='center'> <CircularProgress /> </Box> : 
             <Grid container className={classes.grid} spacing={2}>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>First Name: {user.data.first_name}</Paper>
@@ -62,7 +64,7 @@ export function UserProfile(props) {
                     <Paper className={classes.paper}>Email: {user.data.email}</Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>New Password: {user.data.password}</Paper>
+                    <Paper className={classes.paper}>New Password: </Paper>
                 </Grid>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>Re-Enter New Password: </Paper>

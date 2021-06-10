@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from 'react';
 import Wallpaper from '../Components/wallpaper';
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
 
 export function Home(props){
     const [wallpapers, setWallpapers] = useState({
@@ -17,10 +19,10 @@ export function Home(props){
     },[])
 
     return(
-        <>
-            {wallpapers.isLoading ? <h1>Loading...</h1> : 
+        <Box textAlign='center'>
+            {wallpapers.isLoading ? <CircularProgress /> : 
                 <Wallpaper wallpaper={wallpapers.data} />
             }
-        </>
+        </Box>
     );
 }

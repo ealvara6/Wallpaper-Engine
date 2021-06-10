@@ -31,7 +31,8 @@ module.exports = function(app) {
 
 
     app.route('/api/user/favorite')
-    .put(auth.verify, users.user_favorite);
+    .put(auth.verify, users.user_favorite)
+    .get(auth.verify, users.user_get_favorites);
 
     
     app.route('/api/user/unfavorite')

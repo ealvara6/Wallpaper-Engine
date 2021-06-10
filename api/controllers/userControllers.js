@@ -133,6 +133,22 @@ exports.user_favorite = (req, res) => {
     })
 }
 
+exports.user_get_favorites = (req, res, next) => {
+    try{
+        User.findById(req.user.id, (err, user) => {
+            try{
+                res.json(user.favorites);
+            }
+            catch(err) {
+                res.json(err);
+            }
+        })
+    }
+    catch(err){
+        next(err);
+    }
+}
+
 exports.user_unfavorite = (req, res) => {
     User.updateOne(
         {_id: req.user.id},

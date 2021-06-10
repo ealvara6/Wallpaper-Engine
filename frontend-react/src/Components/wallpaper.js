@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     },
     icon: {
         color: 'white',
+    },
+    gridListTileBar: {
+        textAlign: 'center',
     }
 }));
 
@@ -30,18 +33,33 @@ export default function Wallpaper(props) {
     const classes = useStyles();
     const [wallpapers, setWallpapers] = useState([...props.wallpaper]);
     const [imageProps, setImageProps] = useState({cellHeight: null, col: null});
+    const [favorites, setFavorites] = useState([]);
     //calculates the height of the gridlist based on the number of images
     const gridHeight = wallpapers.length * 600;
 
 
     useEffect(() => {
         handleViewPort();
-        window.addEventListener('resize', handleViewPort)
+        window.addEventListener('resize', handleViewPort);
+        if(localStorage.getItem('loggedIn')) {
+            const data = {
+                headers: {
+                    token: localStorage.getItem('token')
+                }
+            }
+            axios.get('/api/user/favorite', data)
+            .then(res => {
+                setFavorites(res.data);
+            })
+            .catch(err => {
+                console.log(err.response.data);
+            })
+        }
 
         return function cleanup(){
             window.removeEventListener('resize', handleViewPort);        
         }
-    },[imageProps])
+    },[])
 
     const handleViewPort = () => {
         if(window.innerWidth < 600)
@@ -52,20 +70,19 @@ export default function Wallpaper(props) {
 
 
 
-    const handleFavorite = (wallpaper, index) => {
+    const handleFavorite = (wallpaper) => {
 
         if(!localStorage.getItem('loggedIn'))
             return alert('Please Login or Sign Up to use this feature')
 
-        
-        console.log(localStorage.getItem('token'));
         const data = {
             favorites: wallpaper._id
         };
         const headers = {
             token: localStorage.getItem('token'),
         }
-        if(!wallpaper.favorite){
+
+        if(favorites.find(id => id === wallpaper._id) === undefined){
             //handles a favorite in the backend
             axios.put('/api/user/favorite', data, { headers })
             .then(res => {
@@ -74,29 +91,31 @@ export default function Wallpaper(props) {
             .catch(err => {
                 console.log(err.response.data);
             })
-
-            //handles a favorite in the frontend
-            const newWallpapers = [...wallpapers];
-            wallpaper.favorite = true;
-            newWallpapers[index] = wallpaper;
-            setWallpapers(newWallpapers);
+            setFavorites([...favorites, wallpaper._id])
         }
         else{
             //handles an unfavorite in the backend
             axios.put('/api/user/unfavorite', data, { headers })
             .then(res => {
-                console.log(res);
             })
             .catch(err => {
                 console.log(err.response.data);
             })
 
             //handles an unfavorite in the frontend
-            const newWallpapers = [...wallpapers];
-            wallpaper.favorite = false;
-            newWallpapers[index] = wallpaper;
-            setWallpapers(newWallpapers);
+            setFavorites(favorites.filter(id => id !== wallpaper._id))
         }
+    }
+
+
+    const handleDownload = (imagePath) => {
+        axios.get(`/api/wallpaper/download/${imagePath}`)
+        .then( res => {
+            window.open(`http://localhost:8080/api/wallpaper/download/${imagePath}`);
+        })
+        .catch(err => {
+            console.log(err.response.data);
+        })
     }
 
 
@@ -104,17 +123,19 @@ export default function Wallpaper(props) {
     //Creates a grid of images to display
     const createList = () => {
         return( <GridList cellHeight={imageProps.cellHeight} className={classes.gridList} height={gridHeight} cols={imageProps.col}>
+            {console.log(favorites)}
             {wallpapers.map((wallpaper, index) => (
                     <GridListTile key={wallpaper.image} cols={3}>
-                        <img src={wallpaper.image} alt={wallpaper.name} />
+                        <img src={`Images/${wallpaper.image}`} alt={wallpaper.name} />
                         <GridListTileBar
+                            className={classes.gridListTileBar}
                             title={wallpaper.name}
                             actionIcon={
                                 <>
-                                    <IconButton className={classes.icon} onClick={() => handleFavorite(wallpaper, index)}>
-                                        {wallpaper.favorite ? <HeartIcon /> : <HeartBorder /> }
+                                    <IconButton className={classes.icon} onClick={() => handleFavorite(wallpaper)}>
+                                        {(favorites.find(id => id === wallpaper._id) != undefined) ? <HeartIcon /> : <HeartBorder /> }
                                     </IconButton>
-                                    <IconButton className={classes.icon}>
+                                    <IconButton className={classes.icon} onClick={() => handleDownload(wallpaper.image)}>
                                         <GetAppIcon />
                                     </IconButton>
                                 </>
