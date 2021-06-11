@@ -124,7 +124,7 @@ export default function Wallpaper(props) {
     const createList = () => {
         return( <GridList cellHeight={imageProps.cellHeight} className={classes.gridList} height={gridHeight} cols={imageProps.col}>
             {console.log(favorites)}
-            {wallpapers.map((wallpaper, index) => (
+            {wallpapers.map((wallpaper) => (
                     <GridListTile key={wallpaper.image} cols={3}>
                         <img src={`Images/${wallpaper.image}`} alt={wallpaper.name} />
                         <GridListTileBar
@@ -141,8 +141,7 @@ export default function Wallpaper(props) {
                                     </IconButton>
                                 </>
                             }
-                        >
-                        </GridListTileBar>
+                        />
                     </GridListTile>
         ))}
         </GridList>)

@@ -27,9 +27,6 @@ const handleValidationError = (err, res) => {
 
 module.exports =  function errorController(err, res) {
     try{
-        
-        console.log('congrates you hit the error middleware');
-        console.log(err);
         if(err.name === 'ValidationError') return err =
             handleValidationError(err, res);
         if(err.code && err.code == 11000) return err =

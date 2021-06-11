@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     divider: {
         backgroundColor: theme.palette.divider,
     },
+    title: {
+        color: theme.palette.text.primary,
+    },
 }))
 
 export function RenderNavbar() {
@@ -78,13 +81,14 @@ export function RenderNavbar() {
         return(
                 <Box className={classes.root}>
                     <Navbar>
-                        <Navbar.Brand href="home">Wallpaper Engine</Navbar.Brand>
+                        <Typography variant='h6' className={classes.title}>Wallpaper Engine</Typography>
+                        {/* <Navbar.Brand href="home" >Wallpaper Engine</Navbar.Brand> */}
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
                                 <ButtonGroup variant="text">
-                                    <Button><Nav.Link href="/">Home</Nav.Link></Button>
-                                    <Button><Nav.Link href="/about">About</Nav.Link></Button>
+                                    <Button color='primary'><Nav.Link href="/">Home</Nav.Link></Button>
+                                    <Button color='primary'><Nav.Link href="/about">About</Nav.Link></Button>
                                 </ButtonGroup>
                             </Nav>
                             <Nav className="ml-auto">
@@ -111,19 +115,20 @@ export function RenderNavbar() {
                     <AccordionSummary
                         expandIcon={<MenuIcon />}
                     >
-                        <Typography>Wallpaper Engine</Typography>
+                        <Typography className={classes.title}>Wallpaper Engine</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <List component='nav' className={classes.list}>
-                            <ListItem button className={classes.listItem} onClick={() => handleButton('home')}>
-                                <ListItemText primary="Home" />
+                            <Divider />
+                            <ListItem className={classes.listItem} onClick={() => handleButton('home')}>
+                                <Button>Home</Button>
                             </ListItem>
                             <Divider />
-                            <ListItem button className={classes.listItem} divider onClick={() => handleButton('about')}>
-                                <ListItemText primary="About" />
+                            <ListItem className={classes.listItem} divider onClick={() => handleButton('about')}>
+                                <Button>About</Button>
                             </ListItem>
 
-                            {isLoggedIn ? <Account /> :
+                            {isLoggedIn ? <ListItem className={classes.listItem}><Account /></ListItem> :
                             <>
                                 <ListItem button className={classes.listItem}>
                                     <LoginModal />

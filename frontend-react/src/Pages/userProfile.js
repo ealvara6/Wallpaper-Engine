@@ -60,15 +60,15 @@ export function UserProfile(props) {
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>Last Name: {user.data.last_name}</Paper>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                     <Paper className={classes.paper}>Email: {user.data.email}</Paper>
                 </Grid>
-                <Grid item xs={6}>
+                {/* <Grid item xs={6}>
                     <Paper className={classes.paper}>New Password: </Paper>
                 </Grid>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>Re-Enter New Password: </Paper>
-                </Grid>
+                </Grid> */}
             </Grid>
             }
         </Container>

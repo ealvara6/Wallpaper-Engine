@@ -40,7 +40,6 @@ export default function Account(props) {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleAccount}>My Account</MenuItem>
-                <MenuItem onClick={handleFavorites}>Favorites</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
         </div>

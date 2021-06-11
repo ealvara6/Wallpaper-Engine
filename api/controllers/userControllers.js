@@ -76,7 +76,7 @@ exports.login_user = (req, res) => {
             console.log(result);
             if(!result){
                 return res.status(400).json({
-                    errors: {msg: "Passwords Is Invalid.", param: "password"}
+                    errors: {msg: "Password Is Invalid.", param: "password"}
                 });
             }
         }).then(() => {

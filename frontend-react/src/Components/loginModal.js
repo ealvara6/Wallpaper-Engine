@@ -72,6 +72,7 @@ export default function LoginModal(props) {
             else{
                 var errorMessages = err.response.data.errors.msg;
                 var errorFields = err.response.data.errors.param;
+                console.log(errorMessages);
             }
             setErrorMessages(errorMessages);
             setErrorFields(errorFields);
