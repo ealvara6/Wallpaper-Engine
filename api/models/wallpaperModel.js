@@ -11,6 +11,12 @@ var WallpaperSchema = new Schema({
         type: String,
         required: 'Please upload an image',
     },
+    cols: {
+        type: Number,
+    },
+    rows: {
+        type: Number,
+    },
     width: {
         type: Number
     },

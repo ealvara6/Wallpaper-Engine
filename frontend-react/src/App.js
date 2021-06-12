@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Box from '@material-ui/core/box';
 import { About } from './Pages/about';
 import { Home } from './Pages/home';
 import { Switch, Route } from 'react-router-dom';
@@ -11,7 +12,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   bg: {
-    backgroundColor: theme.palette.background.default,  
+    backgroundColor: theme.palette.background.default,
+  },
+  footer: {
+    marginBottom: '200px',
   }
 }))
 
@@ -26,6 +30,7 @@ function App() {
         <Route path='/user/favorites' component={UserFavorites} />
         <Route path='/' component={Home} />
       </Switch>
+      <Box className={classes.footer}></Box>
     </div>
   );
 }

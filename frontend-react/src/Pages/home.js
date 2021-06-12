@@ -19,10 +19,12 @@ export function Home(props){
     },[])
 
     return(
-        <Box textAlign='center'>
+        <>
+        {/* Box textAlign='center'> */}
             {wallpapers.isLoading ? <CircularProgress /> : 
                 <Wallpaper wallpaper={wallpapers.data} />
             }
-        </Box>
+        {/* </Box> */}
+        </>
     );
 }

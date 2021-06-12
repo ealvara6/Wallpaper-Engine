@@ -16,9 +16,14 @@ const useStyles = makeStyles((theme) => ({
         flexwrap: 'wrap',
         justifyContent: 'space-around',
         overflow: 'hidden',
+        marginTop: theme.spacing(3),
     },
     gridList: {
-        width: 1500,
+        height: 'auto',
+        width: '1500px',
+    },
+    tile: {
+        paddingTop: theme.spacing(1),
     },
     icon: {
         color: 'white',
@@ -34,6 +39,7 @@ export default function Wallpaper(props) {
     const [wallpapers, setWallpapers] = useState([...props.wallpaper]);
     const [imageProps, setImageProps] = useState({cellHeight: null, col: null});
     const [favorites, setFavorites] = useState([]);
+    const [mobileView, setMobileView] = useState(false);
     //calculates the height of the gridlist based on the number of images
     const gridHeight = wallpapers.length * 600;
 
@@ -63,9 +69,14 @@ export default function Wallpaper(props) {
 
     const handleViewPort = () => {
         if(window.innerWidth < 600)
-            setImageProps({cellHeight: 300, col: 3});
-        else
-            setImageProps({cellHeight: 600, col: 6});
+        {
+            setMobileView(true);
+            setImageProps({cellHeight: 300, col: 1});
+        }
+        else{
+            setImageProps({cellHeight: 600, col: 3});
+            setMobileView(false);
+        }
     }
 
 
@@ -122,10 +133,11 @@ export default function Wallpaper(props) {
 
     //Creates a grid of images to display
     const createList = () => {
-        return( <GridList cellHeight={imageProps.cellHeight} className={classes.gridList} height={gridHeight} cols={imageProps.col}>
-            {console.log(favorites)}
+        return( <GridList cellHeight={imageProps.cellHeight} className={classes.gridList} cols={imageProps.col}>
+            {console.log('render triggered')}
             {wallpapers.map((wallpaper) => (
-                    <GridListTile key={wallpaper.image} cols={3}>
+                // changes col and row depending on viewport
+                    <GridListTile key={wallpaper.image} className={classes.tile} cols={mobileView ? 1 : wallpaper.cols || 1} rows={mobileView ? 1 : wallpaper.rows || 1}>
                         <img src={`Images/${wallpaper.image}`} alt={wallpaper.name} />
                         <GridListTileBar
                             className={classes.gridListTileBar}
