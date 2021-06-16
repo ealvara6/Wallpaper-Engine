@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         marginTop: 100,
-        // borderStyle: 'solid'
     },
     grid: {
         padding: theme.spacing(2),
@@ -129,12 +128,11 @@ export function UserProfile(props) {
     return(
         <Container className={classes.root}>
             <Paper className={classes.paper}>
-                {/* {console.log(errors)} */}
                 <Typography variant="h5" className={classes.title}>Account Profile</Typography>
                 {success ? <Success message='Profile Successfully Updated!' /> : null}
                 {isLoading ? <Box textAlign='center'> <CircularProgress /> </Box> : 
                 <Grid container className={classes.grid} spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         {/* Error.find is used to check if an error occured within the given field */}
                         <Paper className={classes.paper}>
                             {errors.find(({ path }) => path === "first_name") ? 
@@ -144,7 +142,7 @@ export function UserProfile(props) {
                             }
                         </Paper>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <Paper className={classes.paper}>
                             {errors.find(({ path }) => path === "last_name") ? 
                                 showErrorMessage("last_name")
@@ -153,7 +151,7 @@ export function UserProfile(props) {
                             }
                         </Paper>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <Paper className={classes.paper}>
                             {errors.find(({ path }) => path === "email") ?
                                 showErrorMessage("email")
@@ -162,7 +160,7 @@ export function UserProfile(props) {
                             }
                         </Paper>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <Paper className={classes.paper}>
                             {console.log(userData.password)}
                             {errors.find(({ path }) => path === "password") ? 
