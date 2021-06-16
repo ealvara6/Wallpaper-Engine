@@ -27,6 +27,10 @@ var UserSchema = new Schema({
         required: 'Please enter a password.',
         minLength: [4, 'password should at leasst be 4 characters long.']
     },
+    hash: {
+        type: String,
+        default: ""
+    },
     favorites: [String],
     Created_date: {
         type: Date,
@@ -37,7 +41,10 @@ var UserSchema = new Schema({
 
 //Apply this function before saving
 UserSchema.pre('save', async function(next) {
-    this.password = await bcrypt.hash(this.password, 12);
+    if(this.password !== this.hash){
+        this.password = await bcrypt.hash(this.password, 12);
+        this.hash = this.password;
+    }
     next();
 });
 

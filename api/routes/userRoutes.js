@@ -27,7 +27,9 @@ module.exports = function(app) {
 
     //get user info
     app.route('/api/user/profile')
-    .get(auth.verify, users.user_info);
+    .get(auth.verify, users.get_user_info)
+    .put(auth.verify, users.update_user_info)
+    .delete(auth.verify, users.delete_account)
 
 
     app.route('/api/user/favorite')

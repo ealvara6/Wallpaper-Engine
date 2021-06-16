@@ -79,7 +79,7 @@ export function About(props){
                 </Grid>
             </Grid> */}
             <Grid container className={classes.Grid}>
-                <Grid container xs={12} sm={3} className={classes.centerCenter}><img src="/Images/headshots/headshot.png" alt="headshot photo" /></Grid>
+                <Grid container xs={12} sm={3} className={classes.centerCenter}><img src="/Images/headshots/headshot.png" alt="headshot" /></Grid>
                 <Grid item xs={12} sm={7}>
                     <Grid item className={classes.block}>
                             <Typography variant='h4' className={classes.title}>Who Am I?</Typography>
@@ -93,7 +93,7 @@ export function About(props){
                     <Typography variant='h4' className={classes.title}>What Brought Me Here</Typography>
                     <Typography className={classes.info}>During my time in the College of Business, I took an MIS intro course where the curriculum covered excel and its features. I discovered that I enjoyed thinking logically and creating functions that improved efficiency in the workflow. I then decided to take additional courses related to programming such as Intro into Object Oriented Programming. During this course I discovered how much I enjoyed programming and logical thinking which drove me to major in MIS. My electives consisted of more techincal courses such as Intro Into Web Development, Intro Into LAMP stack, Advanced Database Management systems, and Advanced Transaction Processing Systems.</Typography>
                 </Grid>
-                <Grid container xs={12} sm={3} className={classes.centerCenter}><img src="/Images/stock_photos/university.jpg" alt="Photo of Code" /></Grid>
+                <Grid container xs={12} sm={3} className={classes.centerCenter}><img src="/Images/stock_photos/university.jpg" alt="Code" /></Grid>
             </Grid>
             {/* <Box className={classes.box}></Box> */}
             <Grid container className={classes.Grid3}>

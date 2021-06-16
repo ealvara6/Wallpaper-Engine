@@ -105,16 +105,53 @@ exports.login_user = (req, res) => {
     })
 }
 
-exports.user_info = (req, res) => {
+exports.get_user_info = (req, res) => {
     User.findById(req.user.id, (err, user) => {
         try{
-            res.json(user)
+            res.json(user);
         }
         catch{
             console.log(err);
         }
     })
 }
+
+exports.update_user_info = (req, res) => {
+    
+    const updateDoc = req.body;
+    User.findById({_id: req.user.id},async  (err, user) => {
+        if(err)
+            return errorController(err, res);
+        if(user.first_name !== updateDoc.first_name)
+            user.first_name = updateDoc.first_name;
+        if(user.last_name !== updateDoc.last_name)
+            user.last_name = updateDoc.last_name;
+        if(user.email !== updateDoc.email)
+            user.email = updateDoc.email;
+        if(user.password !== updateDoc.password)
+            user.password = updateDoc.password
+
+        await user.save((err, user) => {
+            if(err)
+                return res.json(err);
+            res.send('User successfully created!');
+        })
+    })
+    }
+
+exports.delete_account = (req, res) => {
+    const filter = {_id: req.user.id};
+
+    User.deleteOne(filter, () => {
+        try{
+            res.json('user successfully deleted.');
+        }
+        catch(err){
+            res.json(err);
+        }
+    })
+}
+
 
 exports.user_favorite = (req, res) => {
     const filter = {_id: req.user.id};
