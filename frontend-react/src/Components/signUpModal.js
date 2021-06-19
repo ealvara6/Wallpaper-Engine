@@ -19,11 +19,8 @@ export default function CreateSignUpModal(props) {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showError, setShowError] = useState(false);
-    const [errorMessages, setErrorMessages] = useState([]);
-    const [errorFields, setErrorFields] = useState([]);
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [successMessage, setSuccessMessage] = useState("");
+    const [errors, setErrors] = useState({message: null, isError: false});
+    const [success, setSuccess] = useState({message: null, isSuccess: false});
     
     //functions to handle form changes
     function handleFirstName(e) {
@@ -46,29 +43,29 @@ export default function CreateSignUpModal(props) {
     }
 
     function handleClose() {
+        // resets error and succes components on close
+        setErrors({message: null, isError: false});
+        setSuccess({message: null, isSuccess: false});
         setOpen(false);
     }
 
 
     function handleSubmit() {
-        var user = {
-            first_name : firstName,
-            last_name : lastName,
-            email : email,
-            password : password,
+        // Resets successs and error components
+        setErrors({message: null, isError: false});
+        setSuccess({message: null, isSuccess: false});
+        var data = {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
         }
-        axios.post('/api/users', user)
+        axios.post('/api/users', data)
         .then(res => {
-            console.log(res);
-            setShowSuccess(true);
-            setShowError(false);
-            setSuccessMessage(res.data.message);
+            setSuccess({message: res.data.message, isSuccess: true});
         })
         .catch((err) => {
-            setErrorMessages(err.response.data.messages);
-            setErrorFields(err.response.data.fields);
-            setShowError(true);
-            setShowSuccess(false);
+            setErrors({message: err.response.data.messages, isError: true});
         });
     }
 
@@ -85,8 +82,8 @@ export default function CreateSignUpModal(props) {
                         <DialogContentText>
                             Create an Account
                         </DialogContentText>
-                            {showSuccess ? <Success message={successMessage} /> : null}
-                            {showError ? <Error errors={errorMessages} /> : null}
+                            {success.isSuccess ? <Success message={success.message} /> : null}
+                            {errors.isError ? <Error message={errors.message} /> : null}
                             <Grid container spacing={3}>
                                 <Grid item xs={6}>
                                     <TextField

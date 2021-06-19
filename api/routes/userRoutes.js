@@ -7,7 +7,6 @@ module.exports = function(app) {
 
     //user routes
     app.route('/api/users')
-    .get(users.list_all_users)
     .post(users.create_a_user);
 
 
@@ -39,11 +38,4 @@ module.exports = function(app) {
     
     app.route('/api/user/unfavorite')
     .put(auth.verify, users.user_unfavorite);
-
-
-    //retrieve or manipulate user data
-    app.route('/api/users/:userEmail')
-    .get(users.read_a_user)
-    .put(users.update_a_user)
-    .delete(users.delete_a_user);
 };

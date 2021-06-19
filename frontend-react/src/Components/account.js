@@ -26,6 +26,9 @@ export default function Account(props) {
         window.location.href = '/user/favorites';
     }
     
+    const handleUpload = () => {
+        window.location.href = '/wallpaper/upload';
+    }
 
     return(
         <div>
@@ -40,6 +43,7 @@ export default function Account(props) {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleAccount}>My Account</MenuItem>
+                <MenuItem onClick={handleUpload}>Upload Wallpaper</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
         </div>

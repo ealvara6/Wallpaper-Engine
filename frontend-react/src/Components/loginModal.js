@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
+import { isError } from 'lodash';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,9 +25,9 @@ export default function LoginModal(props) {
     const [open, setOpen] = useState(props.open);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({message: null, isError: false});
     const [showError, setShowError] = useState(false);
     const [errorMessages, setErrorMessages] =  useState([]);
-    const [errorFields, setErrorFields] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(null);
     const [token, setToken] = useState(null);
 
@@ -43,18 +44,21 @@ export default function LoginModal(props) {
     //handle modal show
     function handleOpen() {
         setOpen(true);
-        setShowError(false);
+        setErrors({message: null, isError: false});
     }
     function handleClose() {
         setOpen(false);
-        setShowError(false);
+        setErrors({message: null, isError: false});
     }
 
     function handleSubmit() {
+        // resets error component
+        setErrors({message: null, isError: false});
+
         var loginInfo = {
             email: email,
-            password: password
-        }
+            password: password,
+        };
         axios.post(`/api/user/login`, loginInfo)
         .then(res => {
             setOpen(false);
@@ -67,16 +71,11 @@ export default function LoginModal(props) {
         .catch((err) => {
             if(err.response.data.errors.length > 1){
                 var errorMessages = err.response.data.errors.map(error => error.msg).join(' ');
-                var errorFields = err.response.data.errors.map(error => error.param).join(' ');
             }
             else{
                 var errorMessages = err.response.data.errors.msg;
-                var errorFields = err.response.data.errors.param;
-                console.log(errorMessages);
             }
-            setErrorMessages(errorMessages);
-            setErrorFields(errorFields);
-            setShowError(true);
+            setErrors({message: errorMessages, isError: true});
         }, [])
 
     }
@@ -90,7 +89,7 @@ export default function LoginModal(props) {
                 <DialogTitle id="form-dialog-title">Login</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {showError ? <Error errors={errorMessages} /> : null}
+                        {errors.isError ? <Error message={errors.message} /> : null}
                         Please login to your account.
                     </DialogContentText>
                     <TextField

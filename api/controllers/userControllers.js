@@ -9,14 +9,6 @@ var mongoose = require('mongoose'),
 
 
 
-exports.list_all_users = (req, res) => {
-    User.find({}, (err, users) => {
-        if(err)
-            res.send(err);
-        res.json(users);
-    });
-};
-
 exports.create_a_user = (req, res) => {
     //validating and saving user info
     var new_user = new User(req.body);
@@ -27,36 +19,10 @@ exports.create_a_user = (req, res) => {
     })
 }
 
-exports.read_a_user = (req, res) => {
-    User.findOne({email: req.params.userEmail, password: req.params.userPassword}, (err, user) => {
-        if(err)
-            res.send(err);
-        res.json(user);
-    })
-}
-
-exports.update_a_user = (req, res) => {
-    var filter = {email: req.params.userEmail};
-    var update = req.body;
-    User.findOneAndUpdate(filter, update, {new: true},(err, user) => {
-        if(err)
-            res.send(err);
-        res.json(user);
-        
-    })
-};
-
-exports.delete_a_user = (req, res) => {
-    var filter = {email: req.params.userEmail};
-    User.deleteOne(filter, (err) => {
-        if(err)
-            res.send(err);
-        res.json({message: 'User successfully deleted'});
-    })
-};
-
 exports.login_user = (req, res) => {
-    const errors = validationResult(req);
+    
+
+    const errors = validationResult(req.body);
 
     //check for validation errors
     if (!errors.isEmpty()) {
@@ -90,9 +56,6 @@ exports.login_user = (req, res) => {
             jwt.sign(
                 payload,
                 "test123",
-                {
-                    expiresIn: 3600
-                },
                 (err, token) => {
                     if (err) throw err;
                     return res.status(200).json({
@@ -134,7 +97,7 @@ exports.update_user_info = (req, res) => {
         await user.save((err, user) => {
             if(err)
                 return res.json(err);
-            res.send('User successfully created!');
+            res.json({message: 'User successfully updated!'});
         })
     })
     }

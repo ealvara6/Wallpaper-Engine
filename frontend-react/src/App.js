@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Box from '@material-ui/core/box';
+import UploadWallpaper from './Pages/uploadWallpaper';
 import { About } from './Pages/about';
 import { Home } from './Pages/home';
 import { Switch, Route } from 'react-router-dom';
@@ -28,6 +29,7 @@ function App() {
         <Route path='/about' component={About} />
         <Route path='/user/profile' component={UserProfile} />
         <Route path='/user/favorites' component={UserFavorites} />
+        <Route path='/wallpaper/upload' component={UploadWallpaper} />
         <Route path='/' component={Home} />
       </Switch>
       <Box className={classes.footer}></Box>

@@ -46,7 +46,7 @@ export function UserProfile(props) {
     const [userData, setUserData] = useState(null);
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState({message: null, isSuccess: false});
     const classes = useStyles();
 
 
@@ -68,11 +68,9 @@ export function UserProfile(props) {
 
 
     const handleChange = (e, id) => {
-        console.log(e.target.value);
         switch(id) {
             case 'first_name':
                 setUserData({...userData, first_name: e.target.value});
-                console.log(userData);
                 break;
             case 'last_name':
                 setUserData({...userData, last_name: e.target.value});
@@ -99,25 +97,28 @@ export function UserProfile(props) {
     }
 
     const handleSubmit = () => {
+        //resets error and success components
         setErrors([]);
+        setSuccess({message: null, isSuccess: false})
         const headerData = {
             headers: {
                 token: localStorage.getItem('token'),
             },
         }
-        const data = {
+        var data = {
             first_name: userData.first_name,
             last_name: userData.last_name,
             email: userData.email,
-            password: userData.password,
+            password: userData.password
         }
         axios.put('/api/user/profile', data, headerData)
         .then(res => {
             if(res.data.errors !== undefined){
+                console.log(res);
                 handleErrors(res.data);
             }
             else
-                setSuccess(true);
+                setSuccess({message: res.data.message, isSuccess: true});
         })
         .catch(err => {
             console.log(err);
@@ -129,7 +130,7 @@ export function UserProfile(props) {
         <Container className={classes.root}>
             <Paper className={classes.paper}>
                 <Typography variant="h5" className={classes.title}>Account Profile</Typography>
-                {success ? <Success message='Profile Successfully Updated!' /> : null}
+                {success.isSuccess ? <Success message={success.message} /> : null}
                 {isLoading ? <Box textAlign='center'> <CircularProgress /> </Box> : 
                 <Grid container className={classes.grid} spacing={2}>
                     <Grid item xs={12} md={6}>
@@ -162,7 +163,6 @@ export function UserProfile(props) {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Paper className={classes.paper}>
-                            {console.log(userData.password)}
                             {errors.find(({ path }) => path === "password") ? 
                                 showErrorMessage("password")
                             :

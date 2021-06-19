@@ -1,12 +1,82 @@
 'use strict';
-const { json, response } = require('express');
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Wallpaper = mongoose.model('Wallpapers'),
-    fs = require('fs')
-    path = require('path');
+    path = require('path'),
+    { v4: uuidv4 } = require('uuid'),
+    fs = require('fs'),
+    formidable = require('formidable'),
+    { validationResult } = require('express-validator/check');
+    
+
+
+
+
+exports.upload_a_wallpaper = (req, res) => {
+
+    const form = formidable.IncomingForm();
+
+    form.parse(req, (err, fields, files) => {
+        if(fields.name === "")
+            return res.status(400).json({message: "Please enter a name for your wallpaper."});
+        if(files.image === undefined)
+            return res.status(400).json({message: "Please choose an image to upload"});
+
+        if(path.extname(files.image.name) !== ".jpg" && path.extname(files.image.name) !== ".png")
+            return res.status(400).json({message: "Not an Image file"});
+
+        const data = {
+            user_id: req.user.id,
+            name: fields.name,
+            tags: fields.tags,
+            image: uuidv4() + ".jpg",
+        };
+        
+
+
+        Wallpaper.create(data, (err, wallpaper) => {
+            try{
+                var oldPath = files.image.path;
+                var newPath = path.join(__dirname, '../../frontend-react/build/Images') + '/' + data.image;
+                var rawData = fs.readFileSync(oldPath);
+
+                fs.writeFile(newPath, rawData, (err) => {
+                    console.log(err);
+                });
+                res.json({message: "Wallpaper Successfully Uploaded!"});
+                }
+            catch{
+                res.json(err);
+            }
+        })
+
+    })
+}
+
+exports.list_wallpapers = (req, res) => {
+    Wallpaper.find({}, (err, wallpapers) => {
+        if(err)
+            return res.send(err);
+        return res.json(wallpapers);
+    })
+}
+
+exports.download_wallpaper = (req, res) => {
+    try{
+        const file = path.join(__dirname, `../../frontend-react/public/Images/${req.params.imagePath}`);
+        res.download(file);
+        console.log(file);
+        }
+    catch(err){
+        response.json(err);
+    }
+}
+
+
+
 
 
 exports.upload_wallpapers = (req, res) => {
+
     Wallpaper.insertMany([
         {name: "cat", image: "cat.jpg",rows: 2, cols: 2, width: 1920, height: 1080, tags: ["cat", "fire", "animal"]},
         {name: "city", image: "city.jpg", rows:2, cols: 1, width: 1920, height: 1080, tags: ["urban", "city"]},
@@ -30,24 +100,4 @@ exports.upload_wallpapers = (req, res) => {
         // {name: "waterfall", image: "waterfall.jpg", cols:3, rows: 1, width: 5472, height: 3648, tags: ["waterfall", "fog", "cliff", "nature", "water"]},
     ]);
     res.json({Message: "Wallpapers added!"});
-}
-
-exports.list_wallpapers = (req, res) => {
-    Wallpaper.find({}, (err, wallpapers) => {
-        if(err)
-            return res.send(err);
-        return res.json(wallpapers);
-    })
-}
-
-exports.download_wallpaper = (req, res) => {
-    try{
-        const file = path.join(__dirname, `../../frontend-react/public/Images/${req.params.imagePath}`);
-        res.download(file);
-        console.log(file);
-        // res.sendFile(file);
-        }
-    catch(err){
-        response.json(err);
-    }
 }

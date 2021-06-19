@@ -3,13 +3,16 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var WallpaperSchema = new Schema({
+    user_id: {
+        type: String,
+    },
     name: {
         type: String,
-        required: "Please enter wallpaper name.",
+        required: [true, "Please enter wallpaper name."],
     },
     image: {
         type: String,
-        required: 'Please upload an image',
+        required: [true, 'Please upload an image'],
     },
     cols: {
         type: Number,
