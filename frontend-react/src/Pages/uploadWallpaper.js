@@ -8,10 +8,15 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Error from '../Components/error';
 import Success from '../Components/success';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme) => ({
+    title:{
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
     name:{
         marginBottom: theme.spacing(4),
     },
@@ -23,12 +28,11 @@ const useStyles = makeStyles((theme) => ({
     },
     img: {
         marginTop: theme.spacing(2),
-        width: 500,
+        width: 200,
         height: 'auto',
     },
-    submit: {
-        alignSelf: 'flex-end',
-        marginLeft: 'auto',
+    form: {
+        alignItems: 'stretch',
     }
 }))
 
@@ -107,23 +111,13 @@ export default function UploadWallpaper (props) {
         <Grid container justify="center">
             <Paper>
                 <Grid container className={classes.container}>
-                    <Grid item xs={12}>
-                        <Typography variant="h5">Upload wallpaper</Typography>
-                        {errors.isError ? showError() : null}
-                        {success.isSuccess ? showSuccess() : null}
+                    <Grid container className={classes.container} xs={12}>
+                        <Grid item xs={12} className={classes.title}>
+                            <Typography variant="h5">Upload wallpaper</Typography>
+                            {errors.isError ? showError() : null}
+                            {success.isSuccess ? showSuccess() : null}
+                        </Grid>
                     </Grid>
-                    {/* {console.log(errors.isError)}
-                    {errors.isError ?
-                    <Grid container className={classes.container} justify="center">
-                        <Grid xs={6}><Error message={errors.message} /></Grid>
-                    </Grid>
-                    : null}
-                    {console.log(success.isSuccess)}
-                    {success.isSuccess ?
-                    <Grid container className={classes.container} justify="center">
-                        <Grid xs={6}><Success message={success.message} /></Grid>
-                    </Grid>
-                    : null} */}
                     <Grid container xs={12} md={6} className={classes.container}>
                         <Grid item xs={12}>
                             <input type="file" accept="image/png, image/jpeg" onChange={(e) => handleChange(e, null, "image")} />
@@ -134,7 +128,7 @@ export default function UploadWallpaper (props) {
                     </Grid>
 
 
-                    <Grid container className={classes.container} xs={12} md={6}>
+                    <Grid container className={classes.container, classes.form} xs={12} md={6}>
                         <Grid item xs={12}>
                             <TextField id="imageName" label="Name" className={classes.name} onChange={(e) => handleChange(e, null, "name")}/>
                             <Autocomplete
@@ -145,11 +139,9 @@ export default function UploadWallpaper (props) {
                                 renderInput={(params) => <TextField {...params} label="Tags" variant="outlined" />}
                                 onChange={(e, value) => handleChange(e, value, "tags")}
                             />
-                        </Grid>
-                        <Grid container xs={12}>
-                            <Grid item className={classes.submit}>
-                                <Button variant="contained" color="primary" onClick={handleSubmit}>Upload Image</Button>
-                            </Grid>
+                            <Box display="flex" justifyContent="flex-end">
+                                <Button variant="contained" color="primary"onClick={handleSubmit}>Upload Image</Button>
+                            </Box>
                         </Grid>
                     </Grid>
                 </Grid>
