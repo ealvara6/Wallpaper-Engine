@@ -1,6 +1,7 @@
 'use strict';
 const mongoose = require('mongoose'),
     Wallpaper = mongoose.model('Wallpapers'),
+    User = mongoose.model('Users'),
     path = require('path'),
     { v4: uuidv4 } = require('uuid'),
     fs = require('fs'),
@@ -32,7 +33,6 @@ exports.upload_a_wallpaper = (req, res) => {
         };
         
 
-
         Wallpaper.create(data, (err, wallpaper) => {
             try{
                 var oldPath = files.image.path;
@@ -42,13 +42,20 @@ exports.upload_a_wallpaper = (req, res) => {
                 fs.writeFile(newPath, rawData, (err) => {
                     console.log(err);
                 });
+
+                User.updateOne(
+                    {_id: data.user_id},
+                    { $push: {wallpapers: wallpaper._id}}, (err, user) => {
+                        console.log("success");
+                    }
+                );
+
                 res.json({message: "Wallpaper Successfully Uploaded!"});
                 }
             catch{
                 res.json(err);
             }
-        })
-
+        });
     })
 }
 
@@ -56,6 +63,7 @@ exports.list_wallpapers = (req, res) => {
     Wallpaper.find({}, (err, wallpapers) => {
         if(err)
             return res.send(err);
+        console.log(wallpapers);
         return res.json(wallpapers);
     })
 }

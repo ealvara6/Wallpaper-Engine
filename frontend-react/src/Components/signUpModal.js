@@ -14,7 +14,7 @@ import Box from '@material-ui/core/Box';
 
 
 export default function CreateSignUpModal(props) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(props.open);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -37,10 +37,7 @@ export default function CreateSignUpModal(props) {
     }
 
 
-    //functions to set modal show
-    function handleOpen() {
-        setOpen(true);
-    }
+    // //functions to set modal show
 
     function handleClose() {
         // resets error and succes components on close
@@ -71,10 +68,7 @@ export default function CreateSignUpModal(props) {
 
     return(
         <Box>
-            <Button variant="outlined" color="primary" onClick={handleOpen}>
-                Sign Up
-            </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="for-dialog-title">
+            <Dialog open={open} onClose={props.onClose} aria-labelledby="for-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
                 {/* form data */}
                 <form>

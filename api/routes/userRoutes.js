@@ -9,6 +9,9 @@ module.exports = function(app) {
     app.route('/api/users')
     .post(users.create_a_user);
 
+    // user wallpaper data
+    app.route('/api/user/wallpapers')
+    .get(auth.verify, users.get_user_wallpapers);
 
 
     //verify login credentials

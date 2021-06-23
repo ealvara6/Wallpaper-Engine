@@ -108,44 +108,47 @@ export default function UploadWallpaper (props) {
 
 
     return(
-        <Grid container justify="center">
-            <Paper>
-                <Grid container className={classes.container}>
-                    <Grid container className={classes.container} xs={12}>
-                        <Grid item xs={12} className={classes.title}>
-                            <Typography variant="h5">Upload wallpaper</Typography>
-                            {errors.isError ? showError() : null}
-                            {success.isSuccess ? showSuccess() : null}
-                        </Grid>
-                    </Grid>
-                    <Grid container xs={12} md={6} className={classes.container}>
-                        <Grid item xs={12}>
-                            <input type="file" accept="image/png, image/jpeg" onChange={(e) => handleChange(e, null, "image")} />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <img src={imgDisplay} className={classes.img} />
-                        </Grid>
-                    </Grid>
+        <Box>
+            {!localStorage.getItem('loggedIn') ? <h1>Unauthorized User</h1> :
+                <Grid container justify="center">
+                    <Paper>
+                        <Grid container className={classes.container}>
+                            <Grid container className={classes.container} xs={12}>
+                                <Grid item xs={12} className={classes.title}>
+                                    <Typography variant="h5">Upload wallpaper</Typography>
+                                    {errors.isError ? showError() : null}
+                                    {success.isSuccess ? showSuccess() : null}
+                                </Grid>
+                            </Grid>
+                            <Grid container xs={12} md={6} className={classes.container}>
+                                <Grid item xs={12}>
+                                    <input type="file" accept="image/png, image/jpeg" onChange={(e) => handleChange(e, null, "image")} />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <img src={imgDisplay} className={classes.img} />
+                                </Grid>
+                            </Grid>
 
 
-                    <Grid container className={classes.container, classes.form} xs={12} md={6}>
-                        <Grid item xs={12}>
-                            <TextField id="imageName" label="Name" className={classes.name} onChange={(e) => handleChange(e, null, "name")}/>
-                            <Autocomplete
-                                className={classes.tags}
-                                multiple
-                                id="tags"
-                                options={opts}
-                                renderInput={(params) => <TextField {...params} label="Tags" variant="outlined" />}
-                                onChange={(e, value) => handleChange(e, value, "tags")}
-                            />
-                            <Box display="flex" justifyContent="flex-end">
-                                <Button variant="contained" color="primary"onClick={handleSubmit}>Upload Image</Button>
-                            </Box>
+                            <Grid container className={classes.container, classes.form} xs={12} md={6}>
+                                <Grid item xs={12}>
+                                    <TextField id="imageName" label="Name" className={classes.name} onChange={(e) => handleChange(e, null, "name")}/>
+                                    <Autocomplete
+                                        className={classes.tags}
+                                        multiple
+                                        id="tags"
+                                        options={opts}
+                                        renderInput={(params) => <TextField {...params} label="Tags" variant="outlined" />}
+                                        onChange={(e, value) => handleChange(e, value, "tags")}
+                                    />
+                                    <Box display="flex" justifyContent="flex-end">
+                                        <Button variant="contained" color="primary"onClick={handleSubmit}>Upload Image</Button>
+                                    </Box>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
-            </Paper>
-        </Grid>
+                    </Paper>
+                </Grid>}
+        </Box>
     )
 }

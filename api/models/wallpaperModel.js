@@ -33,5 +33,8 @@ var WallpaperSchema = new Schema({
     }
 });
 
+WallpaperSchema.pre('remove', (next) => {
+    this.model('Users').remove({ $pull: { favorites: this._id } }, next);
+});
 
 module.exports = mongoose.model('Wallpapers', WallpaperSchema);

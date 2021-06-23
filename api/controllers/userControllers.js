@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator/check');
 var mongoose = require('mongoose'),
-    User = mongoose.model('Users');
+    User = mongoose.model('Users'),
+    Wallpaper = mongoose.model('Wallpapers');
 
 
 
@@ -160,6 +161,22 @@ exports.user_unfavorite = (req, res) => {
         }
         catch{
             res.json(err);
+        }
+    })
+}
+
+exports.get_user_wallpapers = (req, res) => {
+    User.findById(req.user.id, (err, user) => {
+        try{
+            const wallpaper = user.wallpapers[0];
+            Wallpaper.findById(wallpaper, (err, wallpaper) => {
+                console.log(wallpaper);
+                res.json(wallpaper);
+            })
+            // res.json(user.wallpapers);
+        }
+        catch{
+            res.status(400).json({message: "Could not get user wallpapers"});
         }
     })
 }

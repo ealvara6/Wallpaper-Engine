@@ -22,6 +22,10 @@ export default function Account(props) {
         window.location.href = '/user/profile';
     }
 
+    const handleWallpapers = () => {
+        window.location.href = "/user/Wallpapers";
+    }
+
     const handleFavorites = () => {
         window.location.href = '/user/favorites';
     }
@@ -43,6 +47,7 @@ export default function Account(props) {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleAccount}>My Account</MenuItem>
+                <MenuItem onClick={handleWallpapers}>My Wallpapers</MenuItem>
                 <MenuItem onClick={handleUpload}>Upload Wallpaper</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>

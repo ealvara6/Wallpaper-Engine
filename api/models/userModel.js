@@ -32,10 +32,11 @@ var UserSchema = new Schema({
         default: ""
     },
     favorites: [String],
+    wallpapers: [String],
     Created_date: {
         type: Date,
         default: Date.now
-    }
+    },
 });
 
 

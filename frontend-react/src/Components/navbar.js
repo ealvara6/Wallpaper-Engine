@@ -17,6 +17,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import CreateSignUpModal from './signUpModal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,6 +45,7 @@ export function RenderNavbar() {
     const classes = useStyles();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     
     useEffect(() => {
         const loggedIn = localStorage.getItem('loggedIn');
@@ -76,6 +78,10 @@ export function RenderNavbar() {
         }
     }
 
+    const handleClose = () => {
+        setShowModal(false);
+    }
+
 
     const desktopNavbar = () => {
         return(
@@ -97,7 +103,8 @@ export function RenderNavbar() {
                                     :
                                     <>
                                         <LoginModal />
-                                        <SignUpModal />
+                                        <Button color="primary" variant="outlined" onClick={() => setShowModal(true)}>Sign Up</Button>
+                                        {showModal ? <CreateSignUpModal open={true} onClose={handleClose} /> : null}
                                     </>
                                 }
                             </Nav>
