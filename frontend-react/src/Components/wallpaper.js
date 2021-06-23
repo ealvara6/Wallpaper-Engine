@@ -130,7 +130,7 @@ export default function Wallpaper(props) {
     }
 
     const handleClose = (wallpaperID) => {
-        setShowModal(showModal.filter(id => id !== wallpaperID))
+        setShowModal([]);
     }
 
 
