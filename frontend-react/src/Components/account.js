@@ -47,7 +47,7 @@ export default function Account(props) {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleAccount}>My Account</MenuItem>
-                <MenuItem onClick={handleWallpapers}>My Wallpapers</MenuItem>
+                {/* <MenuItem onClick={handleWallpapers}>My Wallpapers</MenuItem> */}
                 <MenuItem onClick={handleUpload}>Upload Wallpaper</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
