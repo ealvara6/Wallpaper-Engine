@@ -42,7 +42,7 @@ export default function Wallpaper(props) {
     const [imageProps, setImageProps] = useState({ cellHeight: null, col: null });
     const [favorites, setFavorites] = useState([]);
     const [mobileView, setMobileView] = useState(false);
-    // const [showModal, setShowModal] = useState([]);
+    const [showModal, setShowModal] = useState([]);
 
 
     useEffect(() => {
@@ -129,9 +129,9 @@ export default function Wallpaper(props) {
             })
     }
 
-    // const handleClose = (wallpaperID) => {
-    //     setShowModal([]);
-    // }
+    const handleClose = (wallpaperID) => {
+        setShowModal(showModal.filter(id => id !== wallpaperID))
+    }
 
 
     //Creates a grid of images to display
@@ -154,15 +154,15 @@ export default function Wallpaper(props) {
                                 <IconButton className={classes.icon} onClick={() => handleFavorite(wallpaper)}>
                                     {/* checks to see if image has already been favorited then displays the correct icon */}
                                     {favorites.find(id => id === wallpaper._id) ? <HeartIcon /> : <HeartBorder />}
-                                </IconButton> : null }
-                                {/* // <IconButton className={classes.icon} onClick={() => setShowModal([...showModal, wallpaper._id])}>
-                                // <HeartBorder classsName={classes.icon} /> 
-                                // </IconButton>}
+                                </IconButton> :
+                                <IconButton className={classes.icon} onClick={() => setShowModal([...showModal, wallpaper._id])}>
+                                <HeartBorder classsName={classes.icon} /> 
+                                </IconButton>}
 
-                                // <IconButton className={classes.icon} onClick={() => handleDownload(wallpaper.image)}>
-                                //     <GetAppIcon />
-                                // </IconButton>
-                                // {showModal.find(id => id === wallpaper._id) ? <CreateSignUpModal open={true} onClose={() => handleClose(wallpaper._id)} /> : null} */}
+                                <IconButton className={classes.icon} onClick={() => handleDownload(wallpaper.image)}>
+                                    <GetAppIcon />
+                                </IconButton>
+                                {showModal.find(id => id === wallpaper._id) ? <CreateSignUpModal open={true} onClose={() => handleClose(wallpaper._id)} /> : null}
                             </>
                         }
                     />
